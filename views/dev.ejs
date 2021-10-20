@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <%- include('./partials/styling.ejs') %>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <title>Dev</title>
+</head>
+<body>
+     <header>
+          <h1>Test Page</h1>
+     </header>
+     <h2>Create a Routine</h2>
+     <div class="container">
+          <form action="">
+               <fieldset>
+                    <legend>Routine Name:</legend>
+                    <input type="text" name="name" value="Routine 1">
+               </fieldset>
+               <fieldset>
+                    <legend>Exercises:</legend>
+                    <!-- make this flex row below: -->
+                    <div id="body-area-exercises">
+                         <select name="area" id="body-area">
+                              <option value="arms">Arms</option>
+                              <option value="legs">Legs</option>
+                              <option value="core">Core</option>
+                              <option value="cardio">Cardio</option>
+                         </select>
+                         <input type="text" id="exercise" value="">
+                         <button type="button" id="add-exercise">add</button>
+                         <input type="hidden" id="hidden-exercises" name="exercises" value="">
+                    </div>
+                    <fieldset id="fieldset-arms">
+                         <legend>Arms</legend>
+                         <ul id="arms">
+                              <li style="color: gray">Example: Chest Press</li>
+                         </ul>
+                    </fieldset>
+                    <fieldset id="fieldset-legs" style="display: none;">
+                         <legend>Legs</legend>
+                         <ul id="legs"></ul>
+                    </fieldset>
+                    <fieldset id="fieldset-core" style="display: none;">
+                         <legend>Core</legend>
+                         <ul id="core"></ul>
+                    </fieldset >
+                    <fieldset id="fieldset-cardio" style="display: none;">
+                         <legend>Cardio</legend>
+                         <ul id="cardio"></ul>
+                    </fieldset>
+                    
+                    
+                    
+               </fieldset>
+          </form>
+     </div>
+    
+<script>
+     const showFieldsets = (ul, fieldset) => {
+          //show fieldsets if not empty
+          if($(`#${ul}`).children().length > 0 ){
+               $(`#${fieldset}`).css('display', 'block');
+          }
+          
+     }
+
+     /// EXERCISE LIST FUNCTIONALITY
+     let valueList = "";
+     $('#add-exercise').on('click', (e) => {
+          
+          //Hide fieldsets if empty
+          const input = $('#exercise').val();
+          const optionValue = $('#body-area').val();
+          if(input !== ''){
+               // if first item added to list, clear example
+               if($('#hidden-exercises').val() === ""){
+               $(`#arms`).empty();
+          }
+               //if input is not empty add item to list and to hidden input
+               $(`#${optionValue}`).append($('<li>').text(input));
+               valueList += "," + input;
+               $(`#hidden-exercises`).attr('value', valueList);
+               
+               //unhide fieldset
+               $(`#fieldset-${optionValue}`).css('display', 'block');
+          }
+          $('#exercise').val(''); // clear the value from the input
+          
+     });
+</script>
+</body>
+</html>
