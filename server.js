@@ -56,6 +56,10 @@ app.get('/' , (req, res) => {
   res.render('index.ejs')
 });
 
+app.get('/attributions', (req, res) => {
+  res.render('attr.ejs')
+})
+
 //___________________
 //Listener
 //___________________

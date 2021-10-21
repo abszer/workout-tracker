@@ -4,9 +4,48 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>sign up</title>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <%- include('../partials/styling.ejs') %>
+     <link rel="stylesheet" href="../css/new.css">
+     <title>Sign Up</title>
 </head>
 <body>
-     <h1>sign up page</h1>
+     <header>
+          <h1><a id="title" href="/">GitFit</a></h1>
+          <img src="/images/list.png" id="hamburger" alt="hamburger">
+          <div class="hamburger-menu">
+               <div class="menu">
+                    <div class="menu-btns">
+                         <a class="button button-primary" href="/user/new">Sign up</a>
+                         <a class="button button-primary" href="/session/new">Log in</a>
+                    </div>
+                    <div class="menu-links">
+                         <a class="button" href="/attributions">Attributions</a>
+                         <a class="button" href="#">github</a>
+                         <a class="button" href="#">Linkedin</a>
+                         <a class="button" href="https://www.robwhite.dev">website</a>
+                    </div>
+               </div>
+               <div class="menu-right"></div>
+          </div>
+     </header>
+     <div class="container">
+          <form autocomplete="off" action="/user" method="POST">
+               <h2>Register</h2>
+               <fieldset>
+                    <legend>Username:</legend>
+                    <input type="text" name="username">
+               </fieldset>
+               <fieldset>
+                    <legend>Password:</legend>
+                    <input type="password" name="password">
+               </fieldset>
+               <div>
+                    <button class="button">Back</button>
+                    <input class="button button-primary" type="submit" value="Sign up">
+               </div>
+          </form>
+     </div>
+     <script src="../scripts/sideMenu.js"></script>
 </body>
 </html>

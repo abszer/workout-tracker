@@ -10,6 +10,7 @@ header {
      padding-bottom: 20px;
 }
 
+
 #hamburger {
      position: absolute;
      width: 5%;
@@ -24,11 +25,16 @@ header {
 
 h1 {
      font-style: italic;
+     font-weight: bolder;
 }
 
 #title {
      text-decoration: none;
      color: white;
+}
+
+h2 {
+     font-weight: bold;
 }
 
 .button {
@@ -123,8 +129,25 @@ button {
 
 }
 
-h1 {
-     font-weight: bolder;
+
+
+.container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+}
+
+form {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background-color: white;
+     color:rgb(49, 49, 49);
+     width: 40vh;
+     height: 40vh;
+     margin: 5%;
+     border-radius: 10px;
 }
 
 
@@ -142,3 +165,4 @@ h1 {
           z-index: 3;
      }
 }
+
