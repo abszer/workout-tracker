@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # workout-tracker
 
 ///////////////////////////////////
@@ -19,3 +20,6 @@
 // 4. Work on how routines info will be submitted, stored and parsed
 
 ////////////////////////////////////
+=======
+# FitWit
+>>>>>>> 92ed44405a7939e4b7cf25e20b180367929863de
