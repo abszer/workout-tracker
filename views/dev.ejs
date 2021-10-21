@@ -29,14 +29,14 @@
                               <option value="core">Core</option>
                               <option value="cardio">Cardio</option>
                          </select>
-                         <input type="text" id="exercise" value="">
+                         <input type="text" id="exercise" placeholder="Example: Chest Press" value="">
                          <button type="button" id="add-exercise">add</button>
                          <input type="hidden" id="hidden-exercises" name="exercises" value="">
                     </div>
-                    <fieldset id="fieldset-arms">
+                    <fieldset id="fieldset-arms" style="display: none;">
                          <legend>Arms</legend>
                          <ul id="arms">
-                              <li style="color: gray">Example: Chest Press</li>
+                              <!-- <li style="color: gray">Example: Chest Press</li> -->
                          </ul>
                     </fieldset>
                     <fieldset id="fieldset-legs" style="display: none;">
@@ -71,6 +71,9 @@
                // if first item added to list, clear example
                if($('#hidden-exercises').val() === ""){
                $(`#arms`).empty();
+
+               //clear placeholder
+               $('#exercise').attr('placeholder', "")
           }
                //if input is not empty add item to list and to hidden input
                $(`#${optionValue}`).append($('<li>').text(input));

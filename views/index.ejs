@@ -5,17 +5,60 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <%- include('./partials/styling.ejs') %>
+     <link rel="stylesheet" href="/css/index.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <title>Home</title>
 </head>
 <body>
      <header>
-          <h1>Workout Tracker v1.0alpha</h1>
-          <button>hamburger menu</button>
-          <a href="#">Sign up</a>
-          <a href="#">Log in</a>
-     </header>
-     <h2></h2>
-     <button>sign up</button>
+          <h1>FitWit</h1>
+          <img src="/images/list.png" id="hamburger" alt="hamburger">
+          <div class="hamburger-menu">
+               <div class="menu">
+                    <div class="menu-btns">
+                         <a class="button button-primary" href="#">Sign up</a>
+                         <a class="button button-primary" href="#">Log in</a>
+                    </div>
+                    <div class="menu-links">
+                         <a class="button" href="#">Attributions</a>
+                         <a class="button" href="#">github</a>
+                         <a class="button" href="#">Linkedin</a>
+                         <a class="button" href="https://www.robwhite.dev">website</a>
+                    </div>
+               </div>
+               <div class="menu-right"></div>
+          </div>
 
+          <!-- only visible on desktop -->
+          <div class="header-btns">
+               <a class="button button-primary" href="#">Sign up</a>
+               <a class="button button-primary" href="#">Log in</a>
+          </div>
+     </header>
+     <button>sign up</button>
+     <script src="/scripts/jquery.js"></script>
+     <script>
+          const waitAndRemove = (e) => {
+               setTimeout((e) => {
+                    $(e.target).removeClass('show');
+               }, 750);
+          }
+
+          $('#hamburger').on('click', (e) => {
+               $('.hamburger-menu').addClass('show');
+               $('.menu').addClass('menu-show');
+               $('.menu').removeClass('menu-hide');
+               $('.menu-right').on('click', (e) => {
+                    // e.stopPropagation();
+                    // $(e.target).removeClass('show');
+                    setTimeout(() => {
+                         $('.hamburger-menu').removeClass('show');
+                    }, 358);
+                    $('.menu').removeClass('menu-show');
+                    $('.menu').addClass('menu-hide');
+                    
+               })
+          })
+     </script>
 </body>
 </html>
