@@ -145,9 +145,35 @@ form {
      background-color: white;
      color:rgb(49, 49, 49);
      width: 40vh;
-     height: 40vh;
+     height: 650px;
      margin: 5%;
      border-radius: 10px;
+}
+
+input[type="text"] {
+     width: 110%;
+     margin-left: -5px;
+}
+
+input[type="password"] {
+     width: 110%;
+     margin-left: -5px;
+}
+
+.height-weight-container{
+     width: 45%;
+}
+
+.height-container {
+     display: flex;
+     align-items: baseline;
+     justify-content: space-around;
+}
+
+.weight-container {
+     display: flex;
+     align-items: baseline;
+     justify-content: space-around;
 }
 
 
