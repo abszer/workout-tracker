@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# workout-tracker
-
-///////////////////////////////////
-
+# GitFit
 
 //////////////// TODO /////////////
 
@@ -11,15 +7,16 @@
 // 1. finish creating the routing
 
 // 2. create basic forms for sign up
-// and login
+// and login COMPLETE
 
 // 3. Create database funcitonality
-//        a. create schema for user, session, and routines
+//        a. create schema for user, and routines
 //             (sessions schema will hold profile data and avatar)
 
 // 4. Work on how routines info will be submitted, stored and parsed
 
+// 5. Create profile icon and drop down for header
+
 ////////////////////////////////////
-=======
-# FitWit
->>>>>>> 92ed44405a7939e4b7cf25e20b180367929863de
+
+

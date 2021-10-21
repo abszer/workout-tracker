@@ -3,6 +3,7 @@
 //___________________
 const express = require('express');
 const methodOverride  = require('method-override');
+const session = require('express-session');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
@@ -43,6 +44,13 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
+//use express-session
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+
 
 //___________________
 // Routes
@@ -55,7 +63,9 @@ app.use('/session', sessionController)
 //___________________
 //localhost:3000 / homepage
 app.get('/' , (req, res) => {
-  res.render('index.ejs')
+  res.render('index.ejs', {
+      currentUser: req.session.currentUser
+  })
 });
 
 app.get('/attributions', (req, res) => {

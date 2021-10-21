@@ -3,7 +3,6 @@ const session = express.Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user.js');
-const e = require('express');
 
 // GET ROUTES
 session.get('/new', (req, res) => {
@@ -20,11 +19,19 @@ session.post('/', (req, res) => {
                res.send('Sorry, no user was found for that username.')
           } else{
                if(bcrypt.compareSync(req.body.password, foundUser.password)){
-                    res.send('correct password')
+                    req.session.currentUser = {username: foundUser.username, firstname: foundUser.firstname, lastname: foundUser.lastname}
+                    res.redirect('/')
                }else{
-                    res.send('incorrect password')
+                    res.sendStatus(401)
                }
           }
      })
 })
+
+//DELETE ROUTE 
+session.delete('/', (req, res) => {
+     req.session.destroy()
+     res.redirect('/')
+})
+
 module.exports = session;

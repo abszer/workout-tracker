@@ -15,7 +15,9 @@ user.get('/new', (req, res) => {
 // POST ROUTES
 user.post('/', (req, res) => {
      //IMPLEMENT SERVER SIDE CHECKS FOR TYPE/LENGTH REQUIREMENTS but not today
-     
+     //   username is not empty
+     //   password is not empty
+     //   password is longer than 6 characters
      req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
      req.body.firstname = req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1, req.body.firstname.length);
      req.body.lastname = req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1, req.body.lastname.length);
@@ -28,6 +30,7 @@ user.post('/', (req, res) => {
                console.log(err)
           }else{
                console.log(createdUser)
+               req.session.currentUser = {username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}
                res.redirect('/session/new')
           }
      })

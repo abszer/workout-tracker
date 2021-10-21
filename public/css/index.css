@@ -3,6 +3,8 @@ body {
      color: rgb(255, 255, 255); 
 }
 
+/* -----------START elements in the header-------- */
+
 header {
      position: relative;
      text-align: center;
@@ -24,19 +26,12 @@ header {
 
 h1 {
      font-style: italic;
+     font-weight: bolder;
 }
 
 #title {
      text-decoration: none;
      color: white;
-}
-
-.button {
-     transition: all 0.1s;
-     background-color: rgb(255, 255, 255);
-}
-button {
-     background-color: rgb(255, 255, 255);
 }
 
 .button:hover {
@@ -47,6 +42,13 @@ button {
      position: absolute;
      right: 1vh;
      bottom: 1px;
+}
+
+#log-out {
+     position: absolute;
+     right: 1%;
+     bottom: 0;
+     margin: 0;
 }
 
 .hamburger-menu {
@@ -123,10 +125,31 @@ button {
 
 }
 
-h1 {
-     font-weight: bolder;
+/* ----------- END elements in the header-------- */
+
+
+/* ----------- START main body container ----------  */
+.container {
+     background-color: rgb(255, 255, 255);
+     margin: 0 auto;
 }
 
+.container h3, h4 {
+     color: rgb(59, 59, 59);
+}
+
+/* ----------- END main body container ----------  */
+.button {
+     transition: all 0.1s;
+     background-color: rgb(255, 255, 255);
+}
+button {
+     background-color: rgb(255, 255, 255);
+}
+
+input[type="submit"] {
+     background-color: white;;
+}
 
 @media (max-width: 1000px) {
      .header-btns {

@@ -15,10 +15,12 @@
           <img src="/images/list.png" id="hamburger" alt="hamburger">
           <div class="hamburger-menu">
                <div class="menu">
+                    <% if(!currentUser) {%>
                     <div class="menu-btns">
                          <a class="button button-primary" href="/user/new">Sign up</a>
                          <a class="button button-primary" href="/session/new">Log in</a>
                     </div>
+                    <%}%> 
                     <div class="menu-links">
                          <a class="button" href="/attributions">Attributions</a>
                          <a class="button" href="https://github.com/abszer">github</a>
@@ -28,14 +30,23 @@
                </div>
                <div class="menu-right"></div>
           </div>
-
+          <% if(currentUser) { %>
+               <form id="log-out" action="/session?_method=DELETE" method="POST">
+                    <input class="button" type="submit" value="Log out">
+               </form>
+          <%}%>
           <!-- only visible on desktop -->
-          <div class="header-btns">
-               <a class="button button-primary" href="/user/new">Sign up</a>
-               <a class="button button-primary" href="/session/new">Log in</a>
-          </div>
+          <% if(!currentUser) { %>
+               <div class="header-btns">
+                    <a class="button button-primary" href="/user/new">Sign up</a>
+                    <a class="button button-primary" href="/session/new">Log in</a>
+               </div>
+          <%}%>
      </header>
-     
+     <div class="container">
+          <h3>Let's Get Started!</h3>
+          <h4>Create or Select a Routine</h4>
+     </div>
      <script src="/scripts/sideMenu.js"></script>
      <script>
           // const waitAndRemove = (e) => {

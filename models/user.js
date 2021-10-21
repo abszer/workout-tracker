@@ -7,7 +7,8 @@ const userSchema = new Schema({
      firstname: {type: String, required: true},
      lastname: {type: String, required: true},
      weight: Number,
-     height: Number
+     height: Number,
+     data: Array // this is where the dataschema will be placed
 })
 
 const User = mongoose.model('User', userSchema);
