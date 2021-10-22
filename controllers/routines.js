@@ -17,7 +17,17 @@ routine.get('/new', (req, res) => {
 
 // POST ROUTES
 routine.post('/', (req, res) => {
-     res.send('this is the post route to create new data')
+     //create an array from the exercises input string
+     const exerciseArray = req.body.exercises.split(',');
+     exerciseArray.shift()
+     req.body.exercises = exerciseArray;
+     Routine.create(req.body, (err, data) => {
+          if(err){
+               res.send("Uh oh. Something went wrong." + err.message)
+          }else{
+               res.redirect('/routine')
+          }
+     })
 })
 
 

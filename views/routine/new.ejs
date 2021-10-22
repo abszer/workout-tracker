@@ -33,7 +33,7 @@
 
      <div class="container">
           <h3 id="welcome-msg">Create a New Routine</h3>
-          <form action="">
+          <form autocomplete="off" action="/routine" method="POST">
                <fieldset>
                     <legend>Routine Name:</legend>
                     <input type="text" name="name" value="Routine 1">
@@ -42,7 +42,7 @@
                     <legend>Exercises:</legend>
                     <!-- make this flex row below: -->
                     <div id="body-area-exercises">
-                         <select name="area" id="body-area">
+                         <select id="body-area">
                               <option value="arms">Arms</option>
                               <option value="legs">Legs</option>
                               <option value="core">Core</option>
