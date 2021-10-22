@@ -40,6 +40,7 @@
                               <li><h4><%= exerciseName %></h4></li>
                               <div class="reps-weight-container" id="div<%= i %>">
                                    <div class="set" id="<%= routine.exercises[i] %>">
+                                        <button type="button" class="new-set-btn" id="<%= i %>">Add Set</button>
                                         <% if(routine.exercises[i].slice(0, routine.exercises[i].indexOf('-')) === "cardio") {%>
                                              <h5>Duration:</h5>
                                              <input id="<%= routine.exercises[i] %>" name="duration-<%= exerciseName %>" type="number">
@@ -49,7 +50,6 @@
                                         <h5>Weight:</h5>
                                         <input name="weight-<%= exerciseName %>" type="number">
                                         <% } %>
-                                        <button type="button" class="new-set-btn" id="<%= i %>">Add Set</button>
                                    </div>     
                               </div> 
                          <%}%>

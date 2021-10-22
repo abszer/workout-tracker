@@ -143,6 +143,7 @@ h1 {
      width: 50%;
 }
 
+
 .container li {
      list-style: none;
 }
@@ -160,7 +161,8 @@ h1 {
 .set {
      display: flex;
      align-items: baseline;
-     width: 80%;
+     flex-wrap: wrap;
+     width: 100%;
      margin: 0 auto;
 }
 
@@ -197,5 +199,10 @@ input[type="submit"] {
           border-bottom: 1px solid rgb(255, 116, 66);
           height: 76px;
           z-index: 3;
+     }
+
+     /* make this variable--------------------------------------------------------------------------- */
+     ul {
+          width: 150px;
      }
 }
