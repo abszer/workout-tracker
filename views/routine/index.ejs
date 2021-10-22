@@ -48,10 +48,15 @@
           <h3 id="welcome-msg">Let's get started, testuser<%= //currentUser.firstname %>!</h3>
           <h4>Create or Select a Routine:</h4>
           <div class="routine-select">
-               <form id="routine-form" action="/routine" method="POST">
+               <form>
                     <label for="routine">Routine:</label>
                     <select name="routine" id="routine">
-                         <option value="create">New routine</option>
+                         <option value="create">Create routine</option>
+                         <% if(routines.length > 0) {%>
+                              <% for(const routine of routines) {%>
+                                   <option value=<%= routine.id %>><%= routine.name %></option>
+                              <%}%>
+                         <%}%>
                     </select>
                     <button id="routine-btn" class="button button-primary" type="button">Go</button>
                </form>
@@ -65,7 +70,8 @@
                if($('#routine').val() === "create"){
                     window.location.href="/routine/new";
                }else{
-                    $('#routine-form').submit();
+                    const selection = $('#routine').val();
+                    window.location.href="/routine/" + selection;
                }
           })
      </script>

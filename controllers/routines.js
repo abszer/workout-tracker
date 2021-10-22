@@ -24,6 +24,10 @@ routine.get('/new', (req, res) => {
      });
 })
 
+routine.get('/:id', (req, res) => {
+     res.send("This is routine ID: " + req.params.id);
+})
+
 // POST ROUTES
 routine.post('/', (req, res) => {
      //create an array from the exercises input string
