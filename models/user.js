@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Routine = require('../models/routine.js')
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -8,7 +9,9 @@ const userSchema = new Schema({
      lastname: {type: String, required: true},
      weight: Number,
      height: Number,
-     data: Array // this is where the dataschema will be placed
+     avatar: String,
+     dailyHistory: Array,   // store when user goes to the gym
+     routines: [Routine.schema] // this is where the routine schema will be placed
 })
 
 const User = mongoose.model('User', userSchema);

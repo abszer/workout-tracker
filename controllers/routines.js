@@ -1,12 +1,21 @@
 const express = require('express');
 const routine = express.Router();
 const Routine = require('../models/routine.js')
+const User = require('../models/user.js')
 
 //GET ROUTES
 routine.get('/', (req, res) => {
-     res.render('routine/index.ejs', {
-          currentUser: req.session.currentUser
-     });
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send(err.message)
+          }else{
+               req.session.currentUser['routines'] = foundUser.routines;
+               res.render('routine/index.ejs', {
+                    currentUser: req.session.currentUser,
+                    routines: req.session.currentUser.routines
+               });
+          }
+     })
 })
 
 routine.get('/new', (req, res) => {
@@ -21,11 +30,18 @@ routine.post('/', (req, res) => {
      const exerciseArray = req.body.exercises.split(',');
      exerciseArray.shift()
      req.body.exercises = exerciseArray;
-     Routine.create(req.body, (err, data) => {
+     const newRoutine = new Routine(req.body)
+
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
           if(err){
-               res.send("Uh oh. Something went wrong." + err.message)
+               res.send(err.message)
           }else{
-               res.redirect('/routine')
+               foundUser.routines.push(newRoutine)
+               foundUser.save().then((savedUser) => {
+                    res.redirect('/routine')
+               }).catch(() => {
+                    res.send("Sorry, an error has ocurred trying to process your routine data. Please try again.")
+               })
           }
      })
 })
