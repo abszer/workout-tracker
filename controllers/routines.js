@@ -29,12 +29,27 @@ routine.get('/:id', (req, res) => {
           if(err){
                res.send(err.message)
           }else{
+
                res.render('routine/show.ejs', {
                     routine: foundUser.routines.id(req.params.id),
-                    currentUser: req.body.currentUser
+                    currentUser: req.session.currentUser
                })
           }
      })
+})
+
+routine.get('/:id/edit', (req, res) => {
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send(err.message)
+          }else{
+               res.render('routine/edit.ejs', {
+                    currentUser: req.session.currentUser,
+                    routine: foundUser.routines.id(req.params.id)
+               })
+          }
+     })
+     
 })
 
 // POST ROUTES
@@ -54,6 +69,25 @@ routine.post('/', (req, res) => {
                     res.redirect('/routine')
                }).catch(() => {
                     res.send("Sorry, an error has ocurred trying to process your routine data. Please try again.")
+               })
+          }
+     })
+})
+
+// DELETE ROUTES
+routine.delete('/:id', (req, res) => {
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send(err.message)
+          }else{
+               foundUser.routines.id(req.params.id).remove();
+               foundUser.save((err) => {
+                    if(err){
+                         res.send("Could not delete routine: " + err.message)
+                    }else{
+                         console.log("routine was deleted")
+                         res.redirect('/routine')
+                    }
                })
           }
      })
