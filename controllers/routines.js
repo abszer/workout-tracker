@@ -25,7 +25,16 @@ routine.get('/new', (req, res) => {
 })
 
 routine.get('/:id', (req, res) => {
-     res.send("This is routine ID: " + req.params.id);
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send(err.message)
+          }else{
+               res.render('routine/show.ejs', {
+                    routine: foundUser.routines.id(req.params.id),
+                    currentUser: req.body.currentUser
+               })
+          }
+     })
 })
 
 // POST ROUTES

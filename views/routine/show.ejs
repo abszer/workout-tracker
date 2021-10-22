@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <%- include('../partials/styling.ejs') %>
+     <link rel="stylesheet" href="/css/routineShow.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <title><%= routine.name %></title>
+</head>
+<body>
+     <header>
+          <h1><a id="title" href="/">GitFit</a></h1>
+          <img src="/images/list.png" id="hamburger" alt="hamburger">
+          <div class="hamburger-menu">
+               <div class="menu">
+                    <div class="menu-links">
+                         <a class="button" href="/attributions">Attributions</a>
+                         <a class="button" href="https://github.com/abszer">github</a>
+                         <a class="button" href="https://www.linkedin.com/in/robertwhite3120/">Linkedin</a>
+                         <a class="button" href="https://www.robwhite.dev">website</a>
+                    </div>
+               </div>
+               <div class="menu-right"></div>
+          </div>
+          <% if(currentUser) { %>
+               <form id="log-out" action="/session?_method=DELETE" method="POST">
+                    <input class="button" type="submit" value="Log out">
+               </form>
+          <%}%>
+     </header>
+     <div class="container">
+          <h2><%= routine.name %></h2>
+          <a href="#">Edit Routine</a>
+          <form action="" method="POST">
+               <ul>
+                    <div class="reps-weight-container"></div>
+                         <% for(let i = 0; i < routine.exercises.length; i++) {%>
+                              <li><h4><%= routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %></h4></li>
+                                   reps: <input type="number"> weight:<input type="number">
+                         <%}%>
+                    </div>
+               </ul>
+          </form>
+     </div>
+
+
+     <script src="/scripts/sideMenu.js"></script>
+     <script>
+          $('#routine-btn').on('click', () => {
+               if($('#routine').val() === "create"){
+                    window.location.href="/routine/new";
+               }else{
+                    const selection = $('#routine').val();
+                    window.location.href="/routine/" + selection;
+               }
+          })
+     </script>
+</body>
+</html>
