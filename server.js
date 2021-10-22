@@ -56,8 +56,10 @@ app.use(session({
 // Routes
 const userController = require('./controllers/users.js')
 const sessionController = require('./controllers/sessions.js')
+const routineController = require('./controllers/routines.js')
 app.use('/user', userController)
 app.use('/session', sessionController)
+app.use('/routine', routineController)
 
 
 //___________________

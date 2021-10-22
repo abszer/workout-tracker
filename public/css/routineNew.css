@@ -148,10 +148,8 @@ h1 {
 }
 
 .container form {
-     display: flex;
-     justify-content: space-between;
-     align-items: baseline;
-     width: 50%;
+     margin: 10px auto;
+     width: 80%;
 }
 
 .routine-select {

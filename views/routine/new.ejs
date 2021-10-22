@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <%- include('../partials/styling.ejs') %>
+     <link rel="stylesheet" href="/css/routineNew.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <title>Home</title>
+</head>
+<body>
+     <header>
+          <h1><a id="title" href="/">GitFit</a></h1>
+          <img src="/images/list.png" id="hamburger" alt="hamburger">
+          <div class="hamburger-menu">
+               <div class="menu">
+                    <div class="menu-links">
+                         <a class="button" href="/attributions">Attributions</a>
+                         <a class="button" href="https://github.com/abszer">github</a>
+                         <a class="button" href="https://www.linkedin.com/in/robertwhite3120/">Linkedin</a>
+                         <a class="button" href="https://www.robwhite.dev">website</a>
+                    </div>
+               </div>
+               <div class="menu-right"></div>
+          </div>
+          <% if(currentUser) { %>
+               <form id="log-out" action="/session?_method=DELETE" method="POST">
+                    <input class="button" type="submit" value="Log out">
+               </form>
+          <%}%>
+     </header>
+
+     <div class="container">
+          <h3 id="welcome-msg">Create a New Routine</h3>
+          <form action="">
+               <fieldset>
+                    <legend>Routine Name:</legend>
+                    <input type="text" name="name" value="Routine 1">
+               </fieldset>
+               <fieldset>
+                    <legend>Exercises:</legend>
+                    <!-- make this flex row below: -->
+                    <div id="body-area-exercises">
+                         <select name="area" id="body-area">
+                              <option value="arms">Arms</option>
+                              <option value="legs">Legs</option>
+                              <option value="core">Core</option>
+                              <option value="cardio">Cardio</option>
+                         </select>
+                         <input type="text" id="exercise" placeholder="Example: Chest Press" value="">
+                         <button type="button" id="add-exercise">add</button>
+                         <input type="hidden" id="hidden-exercises" name="exercises" value="">
+                    </div>
+                    <fieldset id="fieldset-arms" style="display: none;">
+                         <legend>Arms</legend>
+                         <ul id="arms">
+                              <!-- <li style="color: gray">Example: Chest Press</li> -->
+                         </ul>
+                    </fieldset>
+                    <fieldset id="fieldset-legs" style="display: none;">
+                         <legend>Legs</legend>
+                         <ul id="legs"></ul>
+                    </fieldset>
+                    <fieldset id="fieldset-core" style="display: none;">
+                         <legend>Core</legend>
+                         <ul id="core"></ul>
+                    </fieldset >
+                    <fieldset id="fieldset-cardio" style="display: none;">
+                         <legend>Cardio</legend>
+                         <ul id="cardio"></ul>
+                    </fieldset>
+               </fieldset>
+               <!-- make this button a cancel button -->
+               <button>FAKE</button>
+               <input class="button button-primary" type="submit" value="Create Routine">
+          </form>
+     </div>
+     <script src="/scripts/routineForm.js"></script>
+     <script src="/scripts/sideMenu.js"></script>
+</body>
+</html>

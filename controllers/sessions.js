@@ -20,7 +20,7 @@ session.post('/', (req, res) => {
           } else{
                if(bcrypt.compareSync(req.body.password, foundUser.password)){
                     req.session.currentUser = {username: foundUser.username, firstname: foundUser.firstname, lastname: foundUser.lastname}
-                    res.redirect('/')
+                    res.redirect('/routine')
                }else{
                     res.sendStatus(401)
                }

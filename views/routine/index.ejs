@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <%- include('./partials/styling.ejs') %>
+     <%- include('../partials/styling.ejs') %>
      <link rel="stylesheet" href="/css/index.css">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <title>Home</title>
@@ -45,25 +45,19 @@
      </header>
 
      <div class="container">
-
           <!-- if user is signed in this is visible:  -->
-          <% if(currentUser) { %>
-               <h3 id="welcome-msg">Let's get started, <%= currentUser.firstname %>!</h3>
-               <h4>Create or Select a Routine:</h4>
-               <div class="routine-select">
-
-                    <form id="routine-form" action="/routine" method="POST">
-                         <label for="routine">Routine:</label>
-                         <select name="routine" id="routine">
-                              <option value="create">New routine</option>
-                              <option value="other">other</option>
-                         </select>
-                         <button id="routine-btn" class="button button-primary" type="button">Go</button>
-                    </form>
-               </div>
-          <%}else{%>
-               <h3>You are not signed in</h3>
-          <%}%>
+          <h3 id="welcome-msg">Let's get started, testuser<%= //currentUser.firstname %>!</h3>
+          <h4>Create or Select a Routine:</h4>
+          <div class="routine-select">
+               <form id="routine-form" action="/routine" method="POST">
+                    <label for="routine">Routine:</label>
+                    <select name="routine" id="routine">
+                         <option value="create">New routine</option>
+                         <option value="other">other</option>
+                    </select>
+                    <button id="routine-btn" class="button button-primary" type="button">Go</button>
+               </form>
+          </div>
      </div>
 
 
