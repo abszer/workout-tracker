@@ -35,17 +35,10 @@
                     <input class="button" type="submit" value="Log out">
                </form>
           <%}%>
-          <!-- only visible on desktop -->
-          <% if(!currentUser) { %>
-               <div class="header-btns">
-                    <a class="button button-primary" href="/user/new">Sign up</a>
-                    <a class="button button-primary" href="/session/new">Log in</a>
-               </div>
-          <%}%>
      </header>
      <div class="container">
           <!-- if user is signed in this is visible:  -->
-          <h3 id="welcome-msg">Let's get started, testuser<%= //currentUser.firstname %>!</h3>
+          <h3 id="welcome-msg">Let's get started, <%= currentUser.firstname %>!</h3>
           <h4>Create or Select a Routine:</h4>
           <div class="routine-select">
                <form>

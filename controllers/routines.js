@@ -74,6 +74,10 @@ routine.post('/', (req, res) => {
      })
 })
 
+routine.post('/finish', (req, res) => {
+     res.send(req.body)
+})
+
 // DELETE ROUTES
 routine.delete('/:id', (req, res) => {
      User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {

@@ -33,28 +33,76 @@
      <div class="container">
           <h2><%= routine.name %></h2>
           <a href="/routine/<%= routine.id %>/edit">Edit Routine</a>
-          <form action="" method="POST">
+          <form action="/routine/finish" method="POST">
                <ul>
-                    <div class="reps-weight-container"></div>
                          <% for(let i = 0; i < routine.exercises.length; i++) {%>
-                              <li><h4><%= routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %></h4></li>
-                                   reps: <input type="number"> weight:<input type="number">
+                              <% const exerciseName = routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %>
+                              <li><h4><%= exerciseName %></h4></li>
+                              <div class="reps-weight-container" id="div<%= i %>">
+                                   <div class="set" id="<%= routine.exercises[i] %>">
+                                        <% if(routine.exercises[i].slice(0, routine.exercises[i].indexOf('-')) === "cardio") {%>
+                                             <h5>Duration:</h5>
+                                             <input id="<%= routine.exercises[i] %>" name="duration-<%= exerciseName %>" type="number">
+                                        <%} else {%>     
+                                        <h5 class=<%= exerciseName %>>Reps:</h5>
+                                        <input name="reps-<%= exerciseName %>" type="number"> 
+                                        <h5>Weight:</h5>
+                                        <input name="weight-<%= exerciseName %>" type="number">
+                                        <% } %>
+                                        <button type="button" class="new-set-btn" id="<%= i %>">Add Set</button>
+                                   </div>     
+                              </div> 
                          <%}%>
-                    </div>
-               </ul>
+               </ul><br>
+               <input class="button button-primary" type="submit" value="Finish Routine">
           </form>
      </div>
 
 
      <script src="/scripts/sideMenu.js"></script>
      <script>
-          $('#routine-btn').on('click', () => {
-               if($('#routine').val() === "create"){
-                    window.location.href="/routine/new";
+          $('.new-set-btn').on('click', (e) => {
+               const btnId = parseInt($(e.target).attr('id')); //this value is one less than the child index for the div child of <ul>
+               const $setContainer = $(`#div${btnId}`);
+               const $currentDiv = $(`#div${btnId}`).children().eq(0)
+               const $currentDivId = $currentDiv.attr('id')
+               const $setDiv = $('<div>').addClass('set')
+               const exerciseType = $currentDivId.slice(0, $currentDivId.indexOf('-'))
+               const exerciseName = $currentDivId.slice($currentDivId.indexOf('-') + 1, $currentDivId.length)
+               
+               // Don't add
+               let $addSetBtn = $('<button>')
+               $addSetBtn.attr('type', 'button')
+               $addSetBtn.addClass('new-set-btn')
+               $addSetBtn.attr('id', $(e.target).attr('id'))
+               
+               if(exerciseType === "cardio"){
+                    const $durationH5 = $('<h5>').text('Duration:');
+                    const $durationInput = $('<input>').attr('name', "duration-" + exerciseName)
+                    $durationInput.attr('type', 'number')
+
+                    $setDiv.append($durationH5)
+                    $setDiv.append($durationInput)
                }else{
-                    const selection = $('#routine').val();
-                    window.location.href="/routine/" + selection;
+                    const $repsH5 = $('<h5>').text('Reps:');
+                    const $weightH5 = $('<h5>').text('Weight:');
+                    const $repInput = $('<input>').attr('name', 'reps-' + exerciseName);
+                    $repInput.attr('type', 'number')
+                    const $weightInput =$('<input>').attr('name', 'weight-' + exerciseName);
+                    $weightInput.attr('type', 'number')
+
+                    $setDiv.append($repsH5)
+                    $setDiv.append($repInput)
+                    $setDiv.append($weightH5)
+                    $setDiv.append($weightInput)
                }
+
+               
+               console.log(exerciseName)
+               console.log(exerciseType)
+
+               $setContainer.append($setDiv)
+               
           })
      </script>
 </body>

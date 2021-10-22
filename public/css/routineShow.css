@@ -130,6 +130,8 @@ h1 {
 
 /* ----------- START main body container ----------  */
 .container {
+     display: flex;
+     flex-direction: column;
      background-color: rgb(255, 255, 255);
      color: rgb(59, 59, 59);
      margin: 15px auto;
@@ -138,9 +140,6 @@ h1 {
 }
 
 .container form {
-     display: flex;
-     justify-content: space-between;
-     align-items: baseline;
      width: 50%;
 }
 
@@ -151,6 +150,26 @@ h1 {
 .routine-select {
      display: flex;
      justify-content: center;
+}
+
+.reps-weight-container {
+     display: flex;
+     flex-direction: column;
+}
+
+.set {
+     display: flex;
+     align-items: baseline;
+     width: 80%;
+     margin: 0 auto;
+}
+
+.set * {
+     margin-right: 2%;
+}
+
+.set input[type="number"] {
+     width: 70px;
 }
 
 /* ----------- END main body container ----------  */
