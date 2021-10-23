@@ -75,7 +75,36 @@ routine.post('/', (req, res) => {
 })
 
 routine.post('/finish/:id', (req, res) => {
-     res.send(req.body)
+
+
+     // add exercise type to name in the html and hope for the best
+     for(const item in req.body){
+          let type = item.slice(0, item.indexOf('-'))
+          let exerciseName = item.slice(item.indexOf('-') + 1, item.length)
+          if(type !== "duration" && !(dataObj[exerciseName]) ){
+               dataObj[exerciseName] = {
+                    reps: [],
+                    weight: []
+               }
+          }
+          if(type === "reps"){
+               dataObj[exerciseName].reps.push(req.body[item])
+          }
+          if(type === "weight"){
+               dataObj[exerciseName].weight.push(req.body[item])
+          }
+          if(type === 'duration' && !(dataObj[exerciseName])){
+               dataObj[exerciseName] = {
+                    reps: []
+               }
+          }
+          if (type == 'duration'){
+               dataObj[exerciseName].reps.push(req.body[item])
+          }
+
+     }
+
+     res.send(dataObj)
 })
 
 
