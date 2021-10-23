@@ -74,7 +74,27 @@ routine.post('/', (req, res) => {
      })
 })
 
+routine.post('/finish/:id', (req, res) => {
+     res.send(req.body)
+})
+
+
 routine.post('/:id', (req, res) => {
+
+     // Apply remove: If exercise has "removed" string then splice from the array and update req.body
+     const recursiveRemove = (arr, keyword) => {
+          if(!arr.includes(keyword)){
+               console.log('function end' + arr)
+               return;
+          }
+          arr.splice(arr.indexOf(keyword), 1)
+          console.log(arr)
+          recursiveRemove(arr, keyword)
+     }
+
+
+     recursiveRemove(req.body.exercises, 'removed')
+
      User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
           if(err){
                res.send("There was an issue with the database. Uh oh." + "\n" + err.message)
@@ -92,10 +112,6 @@ routine.post('/:id', (req, res) => {
      })
 })
 
-
-routine.post('/finish', (req, res) => {
-     res.send(req.body)
-})
 
 // DELETE ROUTES
 routine.delete('/:id', (req, res) => {

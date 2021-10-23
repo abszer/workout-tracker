@@ -54,9 +54,13 @@
           </form>
 
           <!-- make the delete button trigger a confirmation appear in future revision -->
-
-          <button type="submit" class="button" id="del-routine-btn" form="delete-form">Delete Routine</button>
-          <button id="submit-btn" type="button" class="button button-primary">Submit Changes</button>
+          <div class="btn-bar-bottom">
+               <button type="submit" class="button" id="del-routine-btn" form="delete-form">Delete Routine</button>
+               <button onclick="window.location.href='/routine/<%= routine.id %>'">Cancel</button>
+               <button id="submit-btn" type="button" class="button button-primary">Submit Changes</button>
+          </div>
+          
+          
      </div>
 
 
@@ -99,13 +103,24 @@
                
           })
 
+          // REMOVE BUTTON FUNCTIONALITY
+          $('.remove-btn').on('click', (e) => {
+               $(e.target).parent().css('display', 'none')
+          })
+
           // SUBMIT BUTTON FUNCTIONALITY
           $('#submit-btn').on('click', (e) => {
                const uniqueInputs = $('#exercise-values').children().length - 2
                for(let i = 0; i < uniqueInputs; i++){
-                    const userInput = $(`#exercises-visible${i}`).val()
-                    const exerciseType = $(`#exercise-type${i}`).val()
-                    const hiddenInput = $(`#exercises-hidden${i}`).val(exerciseType + "-" + userInput)
+                    if($(`#exercises-hidden${i}`).parent().css('display') !== 'none'){
+                         const userInput = $(`#exercises-visible${i}`).val()
+                         const exerciseType = $(`#exercise-type${i}`).val()
+                         const hiddenInput = $(`#exercises-hidden${i}`).val(exerciseType + "-" + userInput)
+                    } else {
+                         const userInput = $(`#exercises-visible${i}`).val()
+                         const exerciseType = $(`#exercise-type${i}`).val()
+                         const hiddenInput = $(`#exercises-hidden${i}`).val('removed')
+                    }
                }
                $('#exercise-values').submit();
                console.log(uniqueInputs)

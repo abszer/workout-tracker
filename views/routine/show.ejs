@@ -33,7 +33,7 @@
      <div class="container">
           <h2><%= routine.name %></h2>
           <a href="/routine/<%= routine.id %>/edit">Edit Routine</a>
-          <form action="/routine/finish" method="POST">
+          <form action="/routine/finish/<%= routine.id %>" method="POST">
                
                <!-- refactor this by removing the ul and li elements -->
                
