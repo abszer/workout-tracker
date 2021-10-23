@@ -5,7 +5,7 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <%- include('../partials/styling.ejs') %>
-     <link rel="stylesheet" href="/css/routineShow.css">
+     <link rel="stylesheet" href="/css/routineEdit.css">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <title><%= routine.name %></title>
 </head>
@@ -31,33 +31,46 @@
           <%}%>
      </header>
      <div class="container">
-          <h2><%= routine.name %></h2>
-          <form action="/routine/<%=routine.id%>?_method=DELETE" method="POST">
-               <input class="button" type="submit" value="Delete Routine">
-          </form>
-          <form action="" method="POST">
-               <ul>
-                    <div class="reps-weight-container"></div>
-                         <% for(let i = 0; i < routine.exercises.length; i++) {%>
-                              <li><h4><%= routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %></h4></li>
-                                   reps: <input type="number"> weight:<input type="number">
-                         <%}%>
+          <form autocomplete="off" id="exercise-values" action="/routine/<%= routine.id %>" method="POST">
+               <h2><input type="text" name="name" value="<%= routine.name %>"></h2>
+               <button class="button" id="add-btn">Add Exercise</button>
+               <% for(let i = 0; i < routine.exercises.length; i++) {%>
+                    <div class="input-row">
+                         <select id="exercise-type<%= i %>">
+                              <option value="arms">Arms</option>
+                              <option value="legs">Legs</option>
+                              <option value="core">Core</option>
+                              <option value="cardio">Cardio</option>
+                         </select>
+                         <h4><input type="text" id="exercises-visible<%= i %>" value="<%= routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %>"></h4>
+                         <input type="hidden" id="exercises-hidden<%= i %>" name="exercises" value="<%= routine.exercises[i] %>">
                     </div>
-               </ul>
+               <%}%>
           </form>
+          <form id="delete-form" action="/routine/<%=routine.id%>?_method=DELETE" method="POST">
+          </form>
+          <!-- make the delete button trigger a confirmation appear in future revision -->
+          <button type="submit" class="button" form="delete-form">Delete Routine</button>
+          <button id="submit-btn" type="button" class="button button-primary">Submit Changes</button>
      </div>
 
 
      <script src="/scripts/sideMenu.js"></script>
      <script>
-          $('#routine-btn').on('click', () => {
-               if($('#routine').val() === "create"){
-                    window.location.href="/routine/new";
-               }else{
-                    const selection = $('#routine').val();
-                    window.location.href="/routine/" + selection;
+
+          $('#submit-btn').on('click', (e) => {
+               const uniqueInputs = $('#exercise-values').children().length - 2
+               for(let i = 0; i < uniqueInputs; i++){
+                    const userInput = $(`#exercises-visible${i}`).val()
+                    // const originalValue = $(`#exercises-hidden${i}`).val()
+                    const exerciseType = $(`#exercise-type${i}`).val()
+                    const hiddenInput = $(`#exercises-hidden${i}`).val(exerciseType + "-" + userInput)
                }
+               $('#exercise-values').submit();
+               console.log(uniqueInputs)
           })
+
+
      </script>
 </body>
 </html>

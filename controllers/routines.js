@@ -74,6 +74,25 @@ routine.post('/', (req, res) => {
      })
 })
 
+routine.post('/:id', (req, res) => {
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send("There was an issue with the database. Uh oh." + "\n" + err.message)
+          }else{
+               const routines = foundUser.routines.id(req.params.id)
+               routines.name = req.body.name
+               routines.exercises = req.body.exercises
+               foundUser.save().then((savedData) => {
+                    console.log(savedData)
+                    res.redirect('/routine/' + req.params.id)
+               }).catch((err) => {
+                    res.send("There was an error processing this update to the database")
+               })
+          }
+     })
+})
+
+
 routine.post('/finish', (req, res) => {
      res.send(req.body)
 })
