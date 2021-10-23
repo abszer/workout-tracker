@@ -33,7 +33,7 @@
      <div class="container">
           <form autocomplete="off" id="exercise-values" action="/routine/<%= routine.id %>" method="POST">
                <h2><input type="text" name="name" value="<%= routine.name %>"></h2>
-               <button class="button" id="add-btn">Add Exercise</button>
+               <button class="button" type="button" id="add-btn">Add Exercise</button>
                <% for(let i = 0; i < routine.exercises.length; i++) {%>
                     <div class="input-row">
                          <select id="exercise-type<%= i %>">
@@ -44,25 +44,66 @@
                          </select>
                          <h4><input type="text" id="exercises-visible<%= i %>" value="<%= routine.exercises[i].slice(routine.exercises[i].indexOf('-') + 1, routine.exercises[i].length) %>"></h4>
                          <input type="hidden" id="exercises-hidden<%= i %>" name="exercises" value="<%= routine.exercises[i] %>">
+                         
+                         <!-- make this button remove by changing value to "" and css display to none. in show page check if value is empty and don't display -->
+                         <button class="remove-btn" type="button">Remove</button>
                     </div>
                <%}%>
           </form>
           <form id="delete-form" action="/routine/<%=routine.id%>?_method=DELETE" method="POST">
           </form>
+
           <!-- make the delete button trigger a confirmation appear in future revision -->
-          <button type="submit" class="button" form="delete-form">Delete Routine</button>
+
+          <button type="submit" class="button" id="del-routine-btn" form="delete-form">Delete Routine</button>
           <button id="submit-btn" type="button" class="button button-primary">Submit Changes</button>
      </div>
 
 
      <script src="/scripts/sideMenu.js"></script>
      <script>
+          //ADD BUTTON FUNCTIONALITY
+          $('#add-btn').on('click', (e) => {
+               const $inputRowDiv = $('<div>').addClass('input-row')
+               // options creation
+               const $armsOption = $('<option>').html("Arms").val('arms')
+               const $legsOption = $('<option>').html("Legs").val('legs')
+               const $coreOption = $('<option>').html("Core").val('core')
+               const $cardioOption = $('<option>').html("Cardio").val('cardio')
+               const options = [$armsOption, $legsOption, $coreOption, $cardioOption]
+               // inputs creation
+               const $h4Container = $('<h4>') 
+               const lastElementID = $('#exercise-values').children().length - 2;
+               const $inputVisible = $('<input>').attr('type', 'text').val('New Exercise')
+               $inputVisible.attr('id', `exercises-visible${lastElementID}`)
+               const $inputHidden= $('<input>').attr('type', 'hidden')
+               $inputHidden.attr('name', 'exercises')
+               $inputHidden.attr('id', `exercises-hidden${lastElementID}`)
+               const $removeButton = $('<button>').attr('type', 'button').html('Remove')
+               $removeButton.addClass('remove-btn')
 
+               
+               const $exerciseTypeSelect = $('<select>').attr('id', 'exercise-type' + (lastElementID)) // give element unique id
+               for(let i = 0; i < options.length; i++){                                                //append options to select element
+                    $exerciseTypeSelect.append(options[i])
+               }
+               
+
+               //append created elements
+               $inputRowDiv.append($exerciseTypeSelect)
+               $h4Container.html($inputVisible) // wrap the visible input with h4 tag
+               $inputRowDiv.append($h4Container)
+               $inputRowDiv.append($inputHidden)
+               $inputRowDiv.append($removeButton)
+               $('#exercise-values').append($inputRowDiv)
+               
+          })
+
+          // SUBMIT BUTTON FUNCTIONALITY
           $('#submit-btn').on('click', (e) => {
                const uniqueInputs = $('#exercise-values').children().length - 2
                for(let i = 0; i < uniqueInputs; i++){
                     const userInput = $(`#exercises-visible${i}`).val()
-                    // const originalValue = $(`#exercises-hidden${i}`).val()
                     const exerciseType = $(`#exercise-type${i}`).val()
                     const hiddenInput = $(`#exercises-hidden${i}`).val(exerciseType + "-" + userInput)
                }

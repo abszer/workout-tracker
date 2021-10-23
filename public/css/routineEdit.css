@@ -161,7 +161,17 @@ h1 {
 
 .input-row {
      display: flex;
-     margin-left: -10%;
+     margin-left: 5%;
+}
+
+.remove-btn {
+     background-color: rgb(241, 76, 76);
+     color: white;
+}
+
+#del-routine-btn {
+     background-color: rgb(241, 76, 76);
+     color: white;
 }
 
 /* .routine-select {
