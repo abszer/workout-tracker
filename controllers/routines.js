@@ -76,7 +76,7 @@ routine.post('/', (req, res) => {
 
 routine.post('/finish/:id', (req, res) => {
 
-
+     const dataObj = {}
      // add exercise type to name in the html and hope for the best
      for(const item in req.body){
           let type = item.slice(0, item.indexOf('-'))
