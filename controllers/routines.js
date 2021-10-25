@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs')
 const routine = express.Router();
 const Routine = require('../models/routine.js')
 const User = require('../models/user.js')
@@ -104,7 +105,23 @@ routine.post('/finish/:id', (req, res) => {
 
      }
 
-     res.send(dataObj)
+     //Assign date for workout: 
+     dataObj['date'] = (new Date).toString()
+
+     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+          if(err){
+               res.send('Could not find user: ' + err.message)
+          } else{
+               foundUser.dailyHistory.push(dataObj.date)
+               foundUser.routines.id(req.params.id).data.push(dataObj)
+               foundUser.save().then((data) => {
+                    console.log(data)
+                    res.redirect('/')
+               }).catch((err) => {
+                    res.send('something went wrong trying to save data: ' + err.message)
+               })
+          }
+     })
 })
 
 

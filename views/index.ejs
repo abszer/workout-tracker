@@ -48,9 +48,12 @@
 
           <!-- if user is signed in this is visible:  -->
           <% if(currentUser) { %>
-               <h2 id="welcome-msg">Welcome back, <%= currentUser.username %>!</h2>
-               <h3><a href="/routine">Routines</a></h3>
-               <h3>Weekly overview (maybe)</h3>
+               <h2 id="welcome-msg"><%= currentUser.username %>'s Dashboard</h2>
+               <h3><a href="/routine">Routines Page</a></h3>
+               <h3>Routine Analysis</h3>
+               <div class="data-container">
+
+               </div>
                
           <%}else{%>
                <h2>Ready to GitFit?</h2>
@@ -67,6 +70,19 @@
                     $('#routine-form').submit();
                }
           })
+     </script>
+     <script>
+          // get user routine data from database
+          $.ajax( {
+               url: '/userData'
+          }).then((data) => {
+               console.log(data)
+               for(const item of data){
+                    
+               }
+          })
+          
+
      </script>
 </body>
 </html>

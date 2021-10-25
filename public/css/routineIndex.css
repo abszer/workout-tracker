@@ -148,8 +148,10 @@ h1 {
 }
 
 .container form {
-     margin: 10px auto;
-     width: 80%;
+     display: flex;
+     justify-content: space-between;
+     align-items: baseline;
+     width: 50%;
 }
 
 .routine-select {
@@ -184,7 +186,8 @@ input[type="submit"] {
           z-index: 3;
      }
 
-     .btn-bar {
-          display: flex;
+     .routine-select {
+          justify-content: flex-start;
+          margin: 5%;
      }
 }

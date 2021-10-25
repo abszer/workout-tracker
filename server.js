@@ -4,7 +4,11 @@
 const express = require('express');
 const methodOverride  = require('method-override');
 const session = require('express-session');
+const fs = require('fs');
 const mongoose = require ('mongoose');
+
+const User = require('./models/user.js');
+
 const app = express ();
 const db = mongoose.connection;
 require('dotenv').config()
@@ -65,13 +69,30 @@ app.use('/routine', routineController)
 //___________________
 //localhost:3000 / homepage
 app.get('/' , (req, res) => {
-  res.render('index.ejs', {
-      currentUser: req.session.currentUser
-  })
+
+    res.render('index.ejs', {
+        currentUser: req.session.currentUser
+    })
+
 });
 
 app.get('/attributions', (req, res) => {
   res.render('attr.ejs')
+})
+
+app.get('/userData', (req, res) => {         
+  if(req.session.currentUser){             // check if user is authorized to see data else throw 401 status
+    User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
+      if(err){
+          res.send(err.message)
+      } else{
+          const data = foundUser.routines
+          res.send(data)
+      }
+    })
+  }else{
+    res.sendStatus(401);
+  }
 })
 
 //___________________
