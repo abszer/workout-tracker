@@ -172,6 +172,29 @@ input[type="submit"] {
      background-color: white;;
 }
 
+/* --------------d3 js class modification---------- */
+
+.data-container {
+     width: 80%;
+     margin: 15px auto;
+}
+
+.data {
+     border: 1px solid black;
+}
+
+svg rect {
+     fill: cornflowerblue;
+  }
+  
+  svg text {
+     fill: black;
+     font: 12px sans-serif;
+     text-anchor: start;
+  }
+
+/*------------ mobile site specific stuff---------- */
+
 @media (max-width: 1000px) {
      .header-btns {
           display: none;

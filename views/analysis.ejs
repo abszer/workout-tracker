@@ -6,8 +6,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <%- include('./partials/styling.ejs') %>
      <link rel="stylesheet" href="/css/analysis.css">
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <script type = "text/javascript" src = "https://d3js.org/d3.v4.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
      <title>Analysis</title>
 </head>
 <body>
@@ -37,8 +37,9 @@
           <!-- if user is signed in this is visible:  -->
           <% if(currentUser) { %>
                <h2 class="welcome-msg" id="<%= selection %>">Analysis</h2>
+               <h5>Max Weight For Exercise by Day</h5>
                <div class="data-container">
-
+                    <div class="data"></div>
                </div>
                
           <%}else{%>
@@ -62,6 +63,7 @@
           const dayIndex = parseInt(selection.slice(selection.indexOf('-') + 1, selection.length))
 
           let maxExerciseStats = {}
+          let dates = []
      
           // get user routine data from database
           $.ajax( {
@@ -71,6 +73,8 @@
                let currentRoutineData = allData[routineIndex].data
 
                for(let i = 0; i < currentRoutineData.length; i++){
+                    dates.push(currentRoutineData[i].date.slice(0, 15)) // push date of exercise to dates array
+
                     for(const exerciseKey in currentRoutineData[i]){
                          if(!(exerciseKey in maxExerciseStats) && exerciseKey !== 'date'){
                               maxExerciseStats[exerciseKey] = []
@@ -92,10 +96,49 @@
                }
 
                console.log(maxExerciseStats)
+               console.log(dates)
 
                //graph data
+               let i = 0;
+               for(const exerciseKey in maxExerciseStats){
+                    let data = maxExerciseStats[exerciseKey].reverse();
+                    const $newDiv = $('<div>').addClass(`data${i}`).addClass('data')
+                    const $newTitle = $('<h4>').text(exerciseKey.slice(exerciseKey.indexOf('-') + 1), exerciseKey.length)
+                    $('.data-container')
+                         .append($newTitle)
+                         .append($newDiv)
+     
 
-
+                    let width = window.innerWidth
+                         scaleFactor = 1.2 * width / width, 
+                         barHeight = 40;
+                    
+                    let graph = d3.select(`.data${i}`)
+                         .append("svg")
+                         .attr("width", width)
+                         .attr("height", barHeight * data.length);
+                    
+                    let bar = graph.selectAll("g")
+                         .data(data)
+                         .enter()
+                         .append("g")
+                         .attr("transform", function(d, i) {
+                              return "translate(0," + i * barHeight + ")";
+                         });
+                    bar.append("rect").attr("width", function(d) {
+                         return d * scaleFactor;
+                    })
+                    
+                    .attr("height", barHeight - 1);
+                    
+                    bar.append("text")
+                         .attr("x", function(d) { return (d*scaleFactor); })
+                         .attr("y", barHeight / 2)
+                         .attr("dy", ".35em")
+                         .text(function(d) { return d; });
+                    i++;  
+               }
+               
           })
           
 
