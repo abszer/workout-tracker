@@ -48,7 +48,7 @@
 
           <!-- if user is signed in this is visible:  -->
           <% if(currentUser) { %>
-               <h2 id="welcome-msg"><%= currentUser.username %>'s Dashboard</h2>
+               <h2 id="welcome-msg"><%= currentUser.firstname %>'s Dashboard</h2>
                <h3><a href="/routine">Routines Page</a></h3>
                <h3>Routine Analysis</h3>
                <div class="data-container">
@@ -72,13 +72,32 @@
           })
      </script>
      <script>
+          let currentRoutineIndex;
+          let currentExerciseObj = {
+               reps: [],
+               weight: []
+          }
+
           // get user routine data from database
           $.ajax( {
                url: '/userData'
-          }).then((data) => {
-               console.log(data)
-               for(const item of data){
+          }).then((allData) => {
+               console.log(allData)
+               let i = 0
+               for(const routine of allData){
                     
+                    const $routineName = $('<h4>').html(routine.name)
+                    $('.data-container').append($routineName)
+                    let j = 0;
+                    for(const datum of routine.data){
+                         const $newLi = $('<li>')
+                         const $newLink = $('<a>').attr('id', i +  "-" + j).text(datum.date.slice(0, datum.date.indexOf('G') - 1))
+                         $newLi.html($newLink)
+                         $('.data-container').append($newLi)
+                         j++;
+                    }
+                    
+                    i++; 
                }
           })
           

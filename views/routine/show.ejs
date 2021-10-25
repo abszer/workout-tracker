@@ -45,12 +45,12 @@
                                    <div class="set" id="<%= routine.exercises[i] %>">
                                         <% if(routine.exercises[i].slice(0, routine.exercises[i].indexOf('-')) === "cardio") {%>
                                              <h5>Duration:</h5>
-                                             <input id="<%= routine.exercises[i] %>" name="duration-<%= routine.exercises[i] %>" type="number" value="0">
+                                             <input id="<%= routine.exercises[i] %>" name="duration-<%= routine.exercises[i] %>" type="number" min="0" value="0">
                                         <%} else {%>     
                                         <h5 class=<%= exerciseName %>>Reps:</h5>
-                                        <input name="reps-<%= routine.exercises[i] %>" type="number" value="0"> 
+                                        <input name="reps-<%= routine.exercises[i] %>" type="number" min="0" value="0"> 
                                         <h5>Weight:</h5>
-                                        <input name="weight-<%= routine.exercises[i] %>" type="number" value="0">
+                                        <input name="weight-<%= routine.exercises[i] %>" type="number" min="0" value="0">
                                         <% } %>
                                    </div>   
                               </div>
