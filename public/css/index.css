@@ -159,6 +159,48 @@ h1 {
      justify-content: center;
 }
 
+#ready-msg {
+     text-align: center;
+     border-bottom: 1px solid rgb(40, 140, 255);
+     padding-bottom: 10px;
+     color:rgb(73, 73, 73);
+     font-weight: bold;
+}
+
+.left-align {
+     display: flex;
+     text-align: center;
+     align-items: center;
+     flex-direction: row;
+     margin: 30px 0;
+
+}
+
+.right-align {
+     display: flex;
+     flex-direction: row-reverse;
+     align-items: center;
+     text-align: center;
+     border: 1px solid rgb(210, 231, 255);
+     border-right: none;
+     border-left: none;
+     padding: 10px 0;
+}
+
+.left-align img {
+     width: 30%;
+     height: auto;
+}
+
+.right-align img {
+     width: 30%;
+     height: auto;
+}
+
+.footer {
+     text-align: center;
+}
+
 /* ----------- END main body container ----------  */
 .button {
      transition: all 0.1s;
