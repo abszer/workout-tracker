@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <%- include('./partials/styling.ejs') %>
+     <link rel="stylesheet" href="/css/analysis.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+     <script type = "text/javascript" src = "https://d3js.org/d3.v4.min.js"></script>
+     <title>Analysis</title>
+</head>
+<body>
+     <header>
+          <h1><a id="title" href="/">GitFit</a></h1>
+          <img src="/images/list.png" id="hamburger" alt="hamburger">
+          <div class="hamburger-menu">
+               <div class="menu">
+                    <div class="menu-links">
+                         <a class="button" href="/attributions">Attributions</a>
+                         <a class="button" href="https://github.com/abszer">github</a>
+                         <a class="button" href="https://www.linkedin.com/in/robertwhite3120/">Linkedin</a>
+                         <a class="button" href="https://www.robwhite.dev">website</a>
+                    </div>
+               </div>
+               <div class="menu-right"></div>
+          </div>
+          <% if(currentUser) { %>
+               <form id="log-out" action="/session?_method=DELETE" method="POST">
+                    <input class="button" type="submit" value="Log out">
+               </form>
+          <%}%>
+     </header>
+
+     <div class="container">
+
+          <!-- if user is signed in this is visible:  -->
+          <% if(currentUser) { %>
+               <h2 class="welcome-msg" id="<%= selection %>">Analysis</h2>
+               <div class="data-container">
+
+               </div>
+               
+          <%}else{%>
+               <h2>Ready to GitFit?</h2>
+          <%}%>
+     </div>
+
+
+     <script src="/scripts/sideMenu.js"></script>
+     <script>
+
+          const convertToInt = (arr) => {
+               for(let i = 0; i < arr.length; i++){
+                    arr[i] = parseInt(arr[i])
+               }
+               return arr;
+          }
+
+          const selection = $('.welcome-msg').attr('id')
+          const routineIndex = parseInt(selection.slice(0, selection.indexOf('-')))
+          const dayIndex = parseInt(selection.slice(selection.indexOf('-') + 1, selection.length))
+
+          let maxExerciseStats = {}
+     
+          // get user routine data from database
+          $.ajax( {
+               url: '/userData'
+          }).then((allData) => {
+               // get all weight data for exercises in routine
+               let currentRoutineData = allData[routineIndex].data
+
+               for(let i = 0; i < currentRoutineData.length; i++){
+                    for(const exerciseKey in currentRoutineData[i]){
+                         if(!(exerciseKey in maxExerciseStats) && exerciseKey !== 'date'){
+                              maxExerciseStats[exerciseKey] = []
+                         }
+                         if(exerciseKey in maxExerciseStats){
+                              if(exerciseKey !== 'date' && !exerciseKey.includes('cardio')){
+                                   let exerciseName = exerciseKey
+                                   let weightDataArr = convertToInt(currentRoutineData[i][exerciseKey].weight[0])
+                                   let maxWeightOfArr = Math.max(...weightDataArr)
+                                   maxExerciseStats[exerciseKey].push(maxWeightOfArr)
+                              }else if(exerciseKey.includes('cardio')){
+                                   let exerciseName = exerciseKey
+                                   let repDataArr = convertToInt(currentRoutineData[i][exerciseKey].reps[0])
+                                   let maxRepOfArr = Math.max(...repDataArr)
+                                   maxExerciseStats[exerciseKey].push(maxRepOfArr)
+                              }
+                         }
+                    }
+               }
+
+               console.log(maxExerciseStats)
+
+               //graph data
+
+
+          })
+          
+
+     </script>
+</body>
+</html>

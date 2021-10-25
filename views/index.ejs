@@ -63,26 +63,21 @@
 
      <script src="/scripts/sideMenu.js"></script>
      <script>
-          $('#routine-btn').on('click', () => {
-               if($('#routine').val() === "create"){
-                    window.location.href="/routine/new";
-               }else{
-                    $('#routine-form').submit();
-               }
-          })
-     </script>
-     <script>
-          let currentRoutineIndex;
-          let currentExerciseObj = {
-               reps: [],
-               weight: []
-          }
+          // let currentRoutineIndex;
+          // let currentExerciseObj = {
+          //      reps: [],
+          //      weight: []
+          // }
+
+
 
           // get user routine data from database
           $.ajax( {
                url: '/userData'
           }).then((allData) => {
                console.log(allData)
+
+               // create elements on the page
                let i = 0
                for(const routine of allData){
                     
@@ -92,13 +87,16 @@
                     for(const datum of routine.data){
                          const $newLi = $('<li>')
                          const $newLink = $('<a>').attr('id', i +  "-" + j).text(datum.date.slice(0, datum.date.indexOf('G') - 1))
+                         $newLink.attr('href', '/analysis/' + i +  '-' + j)
                          $newLi.html($newLink)
                          $('.data-container').append($newLi)
                          j++;
                     }
-                    
+
                     i++; 
                }
+
+
           })
           
 

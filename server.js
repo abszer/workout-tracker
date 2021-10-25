@@ -80,6 +80,13 @@ app.get('/attributions', (req, res) => {
   res.render('attr.ejs')
 })
 
+app.get('/analysis/:id', (req ,res) => {
+    res.render('analysis.ejs', {
+        selection: req.params.id,
+        currentUser: req.session.currentUser
+    }) 
+})
+
 app.get('/userData', (req, res) => {         
   if(req.session.currentUser){             // check if user is authorized to see data else throw 401 status
     User.findOne({username: req.session.currentUser.username}, (err, foundUser) => {
