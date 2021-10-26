@@ -10,12 +10,22 @@
 
 ### Technologies Used
 - HTML and CSS
-- jQuery
+- jQuery / JavaScript
 - Node.js
 - Dependencies: BCrypt, Dotenv, EJS, Express, Express-Session, Method-Override, Mongoose
+- D3.js
 - MongoDB
 - AJAX
 
-### Approach
+### Milestones in Development
+- Basic wireframe design translated to HTML/CSS
+- Routine pages designed 
+- Routine restful routes created 
+- Improved app styling
+- Added simple data visualization
+- Added capability to view past logs
  
 ### Features to Implement
+- Better data anylsis
+- Dedicated user profile page/dashboard 
+- More graphs
