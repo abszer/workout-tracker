@@ -193,11 +193,14 @@ h1 {
 .left-align img {
      width: 30%;
      height: auto;
+     filter: drop-shadow(-8px  8px 2px rgba(179, 190, 253, 0.705));
+     
 }
 
 .right-align img {
      width: 30%;
      height: auto;
+     filter: drop-shadow(-8px  8px 2px rgba(179, 190, 253, 0.705));
 }
 
 .footer {
