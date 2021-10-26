@@ -37,7 +37,7 @@
           <!-- if user is signed in this is visible:  -->
           <% if(currentUser) { %>
                <h2 class="welcome-msg" id="<%= selection %>">Analysis</h2>
-               <h5>Max Weight For Exercise by Day</h5>
+               <h5 id="sub-heading">Max Weight For Exercise by Day</h5>
                <div class="data-container">
                     <div class="data"></div>
                </div>
@@ -53,7 +53,7 @@
 
           const convertToInt = (arr) => {
                for(let i = 0; i < arr.length; i++){
-                    arr[i] = parseInt(arr[i])
+                    arr[i] = Number(arr[i])
                }
                return arr;
           }
@@ -71,7 +71,7 @@
           }).then((allData) => {
                // get all weight data for exercises in routine
                let currentRoutineData = allData[routineIndex].data
-
+               console.log('all routine data', currentRoutineData)
                for(let i = 0; i < currentRoutineData.length; i++){
                     dates.push(currentRoutineData[i].date.slice(0, 15)) // push date of exercise to dates array
 
@@ -81,12 +81,15 @@
                          }
                          if(exerciseKey in maxExerciseStats){
                               if(exerciseKey !== 'date' && !exerciseKey.includes('cardio')){
-                                   let exerciseName = exerciseKey
+                                   
                                    let weightDataArr = convertToInt(currentRoutineData[i][exerciseKey].weight[0])
+                                   
                                    let maxWeightOfArr = Math.max(...weightDataArr)
+                                   
                                    maxExerciseStats[exerciseKey].push(maxWeightOfArr)
+                                   
                               }else if(exerciseKey.includes('cardio')){
-                                   let exerciseName = exerciseKey
+                                   
                                    let repDataArr = convertToInt(currentRoutineData[i][exerciseKey].reps[0])
                                    let maxRepOfArr = Math.max(...repDataArr)
                                    maxExerciseStats[exerciseKey].push(maxRepOfArr)
@@ -137,6 +140,42 @@
                          .attr("dy", ".35em")
                          .text(function(d) { return d; });
                     i++;  
+               }
+
+               //show log of what was done for each routine
+               const $dataContainer = $('.data-container')
+               const $dataUl = $('<ul>')
+               $dataContainer.append($dataUl)
+
+               console.log("this is the data: ", currentRoutineData[dayIndex])
+               const selectedRoutine = currentRoutineData[dayIndex]
+               for(const exercise in selectedRoutine){
+                    if(exercise !== 'date'){
+                         const $newLi = $('<li>').text('Exercise: ' + exercise.slice(exercise.indexOf('-') + 1, exercise.length))
+                         $dataUl.append($newLi)
+                         
+                         const $subUlOne = $('<ul>')
+                         let repsString = '';
+                         for(rep of selectedRoutine[exercise].reps){
+                              
+                              repsString += '' + rep + ','
+                         }
+                         repsString = repsString.slice(0, repsString.length - 1)
+                         $subUlOne.append($('<li>').text('Rep Progression: ' + repsString));
+
+                         const $subUlTwo = $('<ul>')
+                         let weightString = '';
+                         for(weight of selectedRoutine[exercise].weight){
+                              
+                              weightString += '' + weight + ','
+                         }
+                         weightString = weightString.slice(0, weightString.length - 1)
+                         $subUlTwo.append($('<li>').text('Weight Progression: ' + weightString));
+
+                         $dataUl.append($subUlOne)
+                         $dataUl.append($subUlTwo)
+                    }
+                    
                }
                
           })

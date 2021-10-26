@@ -147,6 +147,10 @@ h1 {
      padding-bottom: 15px;
 }
 
+#sub-heading {
+     text-align: center;
+}
+
 .container form {
      display: flex;
      justify-content: space-between;
