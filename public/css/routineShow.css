@@ -140,9 +140,8 @@ h1 {
 }
 
 .container form {
-     width: 50%;
+     width: 200%;
 }
-
 
 .container li {
      list-style: none;
@@ -174,6 +173,11 @@ h1 {
      width: 70px;
 }
 
+.finish-btn {
+     display: flex;
+     justify-content: center;
+}
+
 /* ----------- END main body container ----------  */
 .button {
      transition: all 0.1s;
@@ -199,6 +203,10 @@ input[type="submit"] {
           border-bottom: 1px solid rgb(255, 116, 66);
           height: 76px;
           z-index: 3;
+     }
+
+     .container form {
+          width: 50%;
      }
 
      /* make this variable--------------------------------------------------------------------------- */

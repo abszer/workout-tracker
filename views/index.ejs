@@ -49,8 +49,8 @@
           <!-- if user is signed in this is visible:  -->
           <% if(currentUser) { %>
                <h2 id="welcome-msg"><%= currentUser.firstname %>'s Dashboard</h2>
-               <h3><a href="/routine">Routines Page</a></h3>
                <h3>Routine Analysis</h3>
+               <h5><a href="/routine">Routine Select</a></h5>
                <div class="data-container">
 
                </div>
@@ -70,8 +70,8 @@
                     <h4>Visualize Your Progression</h4>
                </div>
                <div class="footer">
-                    <button class="button button-primary">Sign up</button>
-                    <button class="button button-primary">Log in</button>
+                    <button class="button button-primary" onclick="window.location.href='user/new'">Sign up</button>
+                    <button class="button button-primary" onclick="window.location.href='session/new'">Log in</button>
                </div>
           <%}%>
      </div>

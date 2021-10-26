@@ -133,18 +133,21 @@ h1 {
      background-color: rgb(255, 255, 255);
      color: rgb(59, 59, 59);
      margin: 15px auto;
+     padding: 0 5%;
      border-radius: 15px;
 }
 
 .container h3, h4 {
      
-     margin: 10px 10px;
+     margin: 10px 0px;
 }
 
 #welcome-msg {
      text-align: center;
      border-bottom: 1px solid rgb(170, 170, 170);
      padding-bottom: 15px;
+     font-weight: bold;
+     color:rgb(73, 73, 73);
 }
 
 .container form {

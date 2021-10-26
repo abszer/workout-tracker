@@ -33,7 +33,7 @@
      <div class="container">
           <h2><%= routine.name %></h2>
           <a href="/routine/<%= routine.id %>/edit">Edit Routine</a>
-          <form action="/routine/finish/<%= routine.id %>" method="POST">
+          <form action="/routine/finish/<%= routine.id %>" id="routine-input" method="POST">
                
                <!-- refactor this by removing the ul and li elements -->
                
@@ -57,8 +57,10 @@
                               <button type="button" class="new-set-btn" id="<%= i %>">Add Set</button>  
                          <%}%>
                </ul><br>
-               <input class="button button-primary" type="submit" value="Finish Routine">
           </form>
+          <div class="finish-btn">
+               <input class="button button-primary" id="finish-btn" form="routine-input" type="submit" value="Finish Routine">
+          </div>
      </div>
 
 
